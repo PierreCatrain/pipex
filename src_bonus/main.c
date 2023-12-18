@@ -6,7 +6,7 @@
 /*   By: picatrai <picatrai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 16:23:31 by picatrai          #+#    #+#             */
-/*   Updated: 2023/12/18 17:48:00 by picatrai         ###   ########.fr       */
+/*   Updated: 2023/12/18 19:14:22 by picatrai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,17 @@ void    ft_child_bonus(t_data_bonus data, char ** argv, char **envp, int (*pipes
         perror("error with command");
         exit(EXIT_FAILURE);
     }
+
+
+    // ft_close_pipe_start(data, pipes);
     if (data.nb_pipe == 0)
     {
         ft_putstr_fd("in file1\n", data.fd3);//
         ft_putstr_fd("out file2\n", data.fd3);//
         dup2(data.fd1, STDIN_FILENO);
         dup2(data.fd2, STDOUT_FILENO);
+        // close(data.fd1);
+        // close(data.fd2);
     }
     else if (data.index_cmd == 0)
     {
@@ -63,6 +68,8 @@ void    ft_child_bonus(t_data_bonus data, char ** argv, char **envp, int (*pipes
         ft_putstr_fd("out 0 1\n", data.fd3);//
         dup2(data.fd1, STDIN_FILENO);
         dup2(pipes[0][1], STDOUT_FILENO);
+        // close(data.fd1);
+        // close(pipes[0][1]);
     }
     else if (data.index_cmd == data.argc - 4)
     {
@@ -72,6 +79,8 @@ void    ft_child_bonus(t_data_bonus data, char ** argv, char **envp, int (*pipes
         ft_putstr_fd("out file2\n", data.fd3);//
         dup2(pipes[data.index_cmd - 1][0], STDIN_FILENO);
         dup2(data.fd2, STDOUT_FILENO);
+        // close(pipes[data.index_cmd - 1][0]);
+        // close(data.fd2);
     }   
     else
     {
@@ -83,8 +92,23 @@ void    ft_child_bonus(t_data_bonus data, char ** argv, char **envp, int (*pipes
         ft_putstr_fd(" 1\n", data.fd3);//
         dup2(pipes[data.index_cmd - 1][0], STDIN_FILENO);
         dup2(pipes[data.index_cmd][1], STDOUT_FILENO);
+        // close(pipes[data.index_cmd - 1][0]);
+        // close(pipes[data.index_cmd][0]);
     }
-    close_all_bonus(&data, pipes);
+    // close_all_bonus(&data, pipes);
+    // close(data.fd3);
+    int i;
+
+    i = -1;
+    while (++i < data.nb_pipe)
+    {
+        ft_putnbr_fd(i, data.fd3);//
+        close(pipes[i][0]);
+        close(pipes[i][1]);
+    }
+    close(data.fd1);
+    close(data.fd2);
+    close(data.fd3);
     execve(data.path_cmd, data.args_cmd, envp);
     free_args_bonus(data);
     free(data.path_cmd);
@@ -126,37 +150,47 @@ int     main(int argc, char **argv, char **envp)
         if (data.pid == -1)
             return (0);
         else if (data.pid == 0)
+        {
             ft_child_bonus(data, argv, envp, pipes);
+            exit(EXIT_SUCCESS);
+        }
         waitpid(data.pid, NULL, 0);
         data.index_cmd++;
     }
+    ft_putstr_fd("\nje suis sorti\n", data.fd3);//
+    i = -1;
+    while (++i < data.nb_pipe)
+    {
+        close(pipes[i][0]);
+        close(pipes[i][1]);
+    }
+    while (wait(NULL) > 0)
+        ;
+    close(data.fd1);
+    close(data.fd2);
     close(data.fd3);
-    close_all_bonus(&data, pipes);
 }
 
 /*
 
 file1
-cat 2
+cat 0
 pipe 0 1
 
 pipe 0 0
-cat 3
+cat 1
 pipe 1 1
 
 pipe 1 0
-cat 4
+cat 2
 pipe 2 1
 
 pipe 2 0
-cat 5
+cat 3
 pipe 3 1
 
 pipe 3 0
-cat 6
+cat 4
 file2
-
-
-nb - 2
 
 */

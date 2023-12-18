@@ -6,7 +6,7 @@
 /*   By: picatrai <picatrai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 16:28:38 by picatrai          #+#    #+#             */
-/*   Updated: 2023/12/18 16:34:33 by picatrai         ###   ########.fr       */
+/*   Updated: 2023/12/18 18:55:40 by picatrai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void    ft_child_2(t_data data, char **argv, char **envp);
 void    free_args_bonus(t_data_bonus data);
 void    close_all_bonus(t_data_bonus *data, int (*pipes)[2]);
 
-
+void    ft_close_pipe_start(t_data_bonus data, int (*pipes)[2]);
 void	ft_putnbr_fd(int n, int fd);
 void	ft_putchar_fd(char c, int fd);
 

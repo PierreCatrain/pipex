@@ -2,7 +2,8 @@
 cat
 in file1
 out 0 1
-
+01
 cat
 in 0 0
 out 1 1
+01
