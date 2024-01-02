@@ -6,7 +6,7 @@
 /*   By: picatrai <picatrai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 15:49:35 by picatrai          #+#    #+#             */
-/*   Updated: 2023/12/12 16:36:32 by picatrai         ###   ########.fr       */
+/*   Updated: 2024/01/02 18:24:54 by picatrai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,20 +81,23 @@ char *ft_get_path_cmd(char *command, char **envp)
     
     str = find_path(envp);
     path_env = ft_split(str, ':');
+	if (path_env == NULL)
+		return (NULL);
     i = 0;
 	while (path_env[i])
 	{
 		tempo = ft_strjoin(path_env[i], "/");
         if (tempo == NULL)
-            return (NULL);
+            return (free_2d(path_env), NULL);
 		path_command = ft_strjoin(tempo, command);
         if (path_command == NULL)
-            return (free(tempo), free_path_env(path_env), NULL);
+            return (free(tempo), free_2d(path_env), NULL);
 		free(tempo);
 		if (access(path_command, 0) == 0)
-			return (free_path_env(path_env), path_command);
+			return (free_2d(path_env), path_command);
 		free(path_command);
 		i++;
 	}
+	free_2d(path_env);
 	return (NULL);
 }
