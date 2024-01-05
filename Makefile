@@ -6,7 +6,7 @@
 #    By: picatrai <picatrai@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/06 16:26:09 by picatrai          #+#    #+#              #
-#    Updated: 2024/01/02 18:55:49 by picatrai         ###   ########.fr        #
+#    Updated: 2024/01/03 16:59:41 by picatrai         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,8 @@ CFLAGS = -Wall -Werror -Wextra
 SRC = src/main.c src/ft_split.c src/ft_get_path_cmd.c src/free_close_error.c
 OBJ = ${SRC:.c=.o}
 SRC_BONUS = src_bonus/main_bonus.c src/ft_split.c src/ft_get_path_cmd.c \
-src/free_close_error.c src_bonus/ft_close_pipe_useless.c
+src/free_close_error.c src_bonus/ft_close_pipe_useless.c src_bonus/gnl_utils.c \
+src_bonus/gnl.c
 OBJ_BONUS = ${SRC_BONUS:.c=.o}
 INCLUDE = -I include
 

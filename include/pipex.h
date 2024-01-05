@@ -6,7 +6,7 @@
 /*   By: picatrai <picatrai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 16:28:38 by picatrai          #+#    #+#             */
-/*   Updated: 2024/01/02 19:12:32 by picatrai         ###   ########.fr       */
+/*   Updated: 2024/01/04 16:00:49 by picatrai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,20 +38,32 @@ typedef struct s_data_bonus
     int     pid;
     int     fd1;
     int     fd2;
+    //int     fd_here_doc[2];
+    int     here_res;
     char    **args_cmd;
     char    *path_cmd;
     int     index_cmd;
 }   t_data_bonus;
 
 void    free_2d(char **str);
-void    close_all(t_data *data);
+void    ft_close(t_data data, int n);
+void    ft_close_bonus(t_data_bonus data, int (*pipes)[2], int n);
 void    ft_putstr_fd(char *str, int fd);
 void    close_fail_pipe(int (*pipes)[2], int index);
 
 char	**ft_split(char *str, char c);
 char *ft_get_path_cmd(char *command, char **envp);
+int	ft_strncmp(char *s1, char *s2, int n);
 
 
 void    ft_close_pipe_useless(t_data_bonus data, int (*pipes)[2], int *fd_in, int *fd_out);
+
+# define BUFFER_SIZE 10
+
+size_t	ft_strlen_gnl(char *str);
+int	ft_check_line(char *stockage);
+char	*ft_clean(char *stockage, int i, int j);
+char	*ft_cut(char *stockage);
+char	*get_next_line(int fd);
 
 #endif

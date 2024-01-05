@@ -6,7 +6,7 @@
 /*   By: picatrai <picatrai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 15:49:35 by picatrai          #+#    #+#             */
-/*   Updated: 2024/01/02 18:24:54 by picatrai         ###   ########.fr       */
+/*   Updated: 2024/01/03 17:59:52 by picatrai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ char *ft_get_path_cmd(char *command, char **envp)
     char	*tempo;
 	char	*path_command;
     int i;
-    
+
     str = find_path(envp);
     path_env = ft_split(str, ':');
 	if (path_env == NULL)
