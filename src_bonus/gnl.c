@@ -6,7 +6,7 @@
 /*   By: picatrai <picatrai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 15:29:57 by picatrai          #+#    #+#             */
-/*   Updated: 2024/01/03 16:58:24 by picatrai         ###   ########.fr       */
+/*   Updated: 2024/01/09 23:26:20 by picatrai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ char	*ft_strjoin_gnl(char *stockage, char *buffer)
 		free(stockage);
 		return (NULL);
 	}
-	str = malloc((ft_strlen_gnl(stockage) + ft_strlen_gnl(buffer) + 1) * sizeof(char));
+	str = malloc((ft_strlen_gnl(stockage) + ft_strlen_gnl(buffer) + 1) \
+			* sizeof(char));
 	if (str == NULL)
 		return (NULL);
 	str = ft_strjoin_suite(stockage, buffer, str);

@@ -6,20 +6,20 @@
 /*   By: picatrai <picatrai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 15:49:35 by picatrai          #+#    #+#             */
-/*   Updated: 2024/01/03 17:59:52 by picatrai         ###   ########.fr       */
+/*   Updated: 2024/01/09 23:05:23 by picatrai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <pipex.h>
 
-int     ft_strlen(char *str)
+int	ft_strlen(char *str)
 {
-    int count;
-    
-    count = 0;
-    while (str[count])
-        count++;
-    return (count);
+	int	count;
+
+	count = 0;
+	while (str[count])
+		count++;
+	return (count);
 }
 
 char	*ft_strjoin(char *s1, char *s2)
@@ -49,9 +49,9 @@ char	*ft_strjoin(char *s1, char *s2)
 
 int	ft_strncmp(char *s1, char *s2, int n)
 {
-    int i;
+	int	i;
 
-    i = 0;
+	i = 0;
 	while ((s1[i] || s2[i]) && i < n)
 	{
 		if (s1[i] != s2[i])
@@ -63,41 +63,39 @@ int	ft_strncmp(char *s1, char *s2, int n)
 
 char	*find_path(char **envp)
 {
-    int i;
-    
-    i = 0;
+	int	i;
+
+	i = 0;
 	while (ft_strncmp("PATH=", envp[i], 5) == 1)
-		i++;  
+		i++;
 	return (&envp[i][5]);
 }
 
-char *ft_get_path_cmd(char *command, char **envp)
+char	*ft_get_path_cmd(char *command, char **envp)
 {
-    char *str;
-    char **path_env;
-    char	*tempo;
+	char	*str;
+	char	**path_env;
+	char	*tempo;
 	char	*path_command;
-    int i;
+	int		i;
 
-    str = find_path(envp);
-    path_env = ft_split(str, ':');
+	str = find_path(envp);
+	path_env = ft_split(str, ':');
 	if (path_env == NULL)
 		return (NULL);
-    i = 0;
-	while (path_env[i])
+	i = -1;
+	while (path_env[++i])
 	{
 		tempo = ft_strjoin(path_env[i], "/");
-        if (tempo == NULL)
-            return (free_2d(path_env), NULL);
+		if (tempo == NULL)
+			return (free_2d(path_env), NULL);
 		path_command = ft_strjoin(tempo, command);
-        if (path_command == NULL)
-            return (free(tempo), free_2d(path_env), NULL);
+		if (path_command == NULL)
+			return (free(tempo), free_2d(path_env), NULL);
 		free(tempo);
 		if (access(path_command, 0) == 0)
 			return (free_2d(path_env), path_command);
 		free(path_command);
-		i++;
 	}
-	free_2d(path_env);
-	return (NULL);
+	return (free_2d(path_env), NULL);
 }
