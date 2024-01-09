@@ -6,7 +6,7 @@
 /*   By: picatrai <picatrai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 16:28:38 by picatrai          #+#    #+#             */
-/*   Updated: 2024/01/04 16:00:49 by picatrai         ###   ########.fr       */
+/*   Updated: 2024/01/09 21:17:38 by picatrai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ typedef struct s_data_bonus
     int     fd1;
     int     fd2;
     //int     fd_here_doc[2];
+    char    *str_here;
+    char    *str_index;
     int     here_res;
     char    **args_cmd;
     char    *path_cmd;
@@ -65,5 +67,9 @@ int	ft_check_line(char *stockage);
 char	*ft_clean(char *stockage, int i, int j);
 char	*ft_cut(char *stockage);
 char	*get_next_line(int fd);
+
+void	ft_putnbr_fd(int n, int fd);
+int     ft_strlen(char *str);
+char	*ft_strjoin(char *s1, char *s2);
 
 #endif

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_close_error_bonus.c                           :+:      :+:    :+:   */
+/*   ft_close_pipe_useless.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: picatrai <picatrai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 17:53:59 by picatrai          #+#    #+#             */
-/*   Updated: 2024/01/02 18:54:11 by picatrai         ###   ########.fr       */
+/*   Updated: 2024/01/09 21:30:19 by picatrai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void    ft_utils_first_command(t_data_bonus data, int (*pipes)[2], int *fd_in, i
 {
     int i;
 
+    
     i = -1;
     while (++i < data.nb_pipe)
     {
@@ -45,7 +46,7 @@ void    ft_utils_first_command(t_data_bonus data, int (*pipes)[2], int *fd_in, i
 void    ft_utils_last_command(t_data_bonus data, int (*pipes)[2], int *fd_in, int *fd_out)
 {
     int i;
-
+    
     i = -1;
     while (++i < data.nb_pipe)
     {
@@ -54,7 +55,7 @@ void    ft_utils_last_command(t_data_bonus data, int (*pipes)[2], int *fd_in, in
         close(pipes[i][1]);
     }
     close(data.fd1);
-    *fd_in = pipes[data.argc - 5][0];
+    *fd_in = pipes[data.nb_pipe - 1][0];
     *fd_out = data.fd2;
 }
 
@@ -84,7 +85,7 @@ void    ft_close_pipe_useless(t_data_bonus data, int (*pipes)[2], int *fd_in, in
         ft_utils_one_command(data, pipes, fd_in, fd_out);
     else if (data.index_cmd == 0)
         ft_utils_first_command(data, pipes, fd_in, fd_out);
-    else if (data.index_cmd == data.argc - 4)
+    else if (data.index_cmd == data.nb_pipe)
         ft_utils_last_command(data, pipes, fd_in, fd_out);
     else
         ft_utils(data, pipes, fd_in, fd_out);
