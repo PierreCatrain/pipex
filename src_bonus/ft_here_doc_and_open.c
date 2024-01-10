@@ -6,7 +6,7 @@
 /*   By: picatrai <picatrai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 22:41:17 by picatrai          #+#    #+#             */
-/*   Updated: 2024/01/09 23:26:52 by picatrai         ###   ########.fr       */
+/*   Updated: 2024/01/10 01:13:17 by picatrai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	ft_get_str_here(char *str, t_data_bonus *data)
 	return (0);
 }
 
-int	ft_here_doc(t_data_bonus *data, int argc, char **argv, int (*pipes)[2])
+int	ft_here_doc(t_data_bonus *data, int argc, char **argv)
 {
 	if (ft_get_str_here(".here_doc", data) == 0)
 		return (-1);
@@ -78,15 +78,15 @@ int	ft_here_doc(t_data_bonus *data, int argc, char **argv, int (*pipes)[2])
 	data->fd2 = open(argv[argc - 1], O_CREAT | O_WRONLY | O_APPEND, 0644);
 	if (data->fd2 < 0)
 		return (ft_putstr_fd("error with outfile\n", 2), \
-				ft_close_bonus(*data, pipes, 1), -1);
+				ft_close_2_fd(*data, 1), -1);
 	return (1);
 }
 
 int	ft_here_doc_and_open(t_data_bonus *data, int argc, \
-		char **argv, int (*pipes)[2])
+		char **argv)
 {
 	if (ft_strncmp(argv[1], "here_doc", 8) == 0 && ft_strlen(argv[1]) == 8)
-		return (ft_here_doc(data, argc, argv, pipes));
+		return (ft_here_doc(data, argc, argv));
 	else
 	{
 		data->fd1 = open(argv[1], O_RDONLY);
@@ -95,7 +95,7 @@ int	ft_here_doc_and_open(t_data_bonus *data, int argc, \
 		data->fd2 = open(argv[argc - 1], O_CREAT | O_WRONLY | O_TRUNC, 0644);
 		if (data->fd2 < 0)
 			return (ft_putstr_fd("error with outfile\n", 2), \
-					ft_close_bonus(*data, pipes, 1), -1);
+					ft_close_2_fd(*data, 1), -1);
 	}
 	return (0);
 }

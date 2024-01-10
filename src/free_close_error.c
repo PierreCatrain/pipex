@@ -6,7 +6,7 @@
 /*   By: picatrai <picatrai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 15:47:33 by picatrai          #+#    #+#             */
-/*   Updated: 2024/01/09 22:58:24 by picatrai         ###   ########.fr       */
+/*   Updated: 2024/01/10 01:33:11 by picatrai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,6 @@ void	free_2d(char **str)
 	while (str[i])
 		free(str[i++]);
 	free(str);
-}
-
-void	close_fail_pipe(int (*pipes)[2], int index)
-{
-	index--;
-	while (index >= 0)
-	{
-		close(pipes[index][0]);
-		close(pipes[index][1]);
-		index--;
-	}
 }
 
 void	ft_close(t_data data, int n)
@@ -53,7 +42,20 @@ void	ft_close(t_data data, int n)
 	}
 }
 
-void	ft_close_bonus(t_data_bonus data, int (*pipes)[2], int n)
+void	ft_close_2_fd(t_data_bonus data, int n)
+{
+	if (n == 1)
+		close(data.fd1);
+	else if (n == 2)
+		close(data.fd2);
+	else if (n == 3)
+	{
+		close(data.fd1);
+		close(data.fd2);
+	}
+}
+
+void	ft_close_bonus(t_data_bonus data, int **pipes, int n)
 {
 	int	i;
 

@@ -6,13 +6,13 @@
 /*   By: picatrai <picatrai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 17:53:59 by picatrai          #+#    #+#             */
-/*   Updated: 2024/01/09 23:20:29 by picatrai         ###   ########.fr       */
+/*   Updated: 2024/01/10 00:06:38 by picatrai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <pipex.h>
 
-void	ft_utils_one_command(t_data_bonus data, int (*pipes)[2], \
+void	ft_utils_one_command(t_data_bonus data, int **pipes, \
 		int *fd_in, int *fd_out)
 {
 	int	i;
@@ -27,7 +27,7 @@ void	ft_utils_one_command(t_data_bonus data, int (*pipes)[2], \
 	*fd_out = data.fd2;
 }
 
-void	ft_utils_first_command(t_data_bonus data, int (*pipes)[2], \
+void	ft_utils_first_command(t_data_bonus data, int **pipes, \
 		int *fd_in, int *fd_out)
 {
 	int	i;
@@ -44,7 +44,7 @@ void	ft_utils_first_command(t_data_bonus data, int (*pipes)[2], \
 	*fd_out = pipes[0][1];
 }
 
-void	ft_utils_last_command(t_data_bonus data, int (*pipes)[2], \
+void	ft_utils_last_command(t_data_bonus data, int **pipes, \
 		int *fd_in, int *fd_out)
 {
 	int	i;
@@ -61,7 +61,7 @@ void	ft_utils_last_command(t_data_bonus data, int (*pipes)[2], \
 	*fd_out = data.fd2;
 }
 
-void	ft_utils(t_data_bonus data, int (*pipes)[2], int *fd_in, int *fd_out)
+void	ft_utils(t_data_bonus data, int **pipes, int *fd_in, int *fd_out)
 {
 	int	i;
 
@@ -81,7 +81,7 @@ void	ft_utils(t_data_bonus data, int (*pipes)[2], int *fd_in, int *fd_out)
 	close(data.fd2);
 }
 
-void	ft_close_pipe_useless(t_data_bonus data, int (*pipes)[2], \
+void	ft_close_pipe_useless(t_data_bonus data, int **pipes, \
 		int *fd_in, int *fd_out)
 {
 	if (data.nb_pipe == 0)
